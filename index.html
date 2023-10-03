@@ -4,44 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        /* Custom styles here */
         body {
             background-color: #231f20; /* Dark Mahogany Brown */
             color: #fff;
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
         }
-        
+
         header {
             background-color: #fec23e; /* Mellow Yellow */
             padding: 20px 0;
             text-align: center;
         }
 
-        h1 {
-            font-size: 36px;
-        }
-
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
             padding: 20px;
         }
 
-        /* Add your content styles below this line */
-        /* Example content: */
-        .content {
-            text-align: center;
+        .tanning-forecast-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            margin-bottom: 20px;
         }
 
-        /* Footer styles */
-        footer {
-            background-color: #fec23e; /* Mellow Yellow */
-            text-align: center;
-            padding: 10px 0;
+        .score-box {
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            border-radius: 50%;
+            font-weight: bold;
+            color: #fff;
         }
+
+        /* Score color gradient */
+        .score-1 { background-color: #FF0000; }
+        .score-2 { background-color: #FF3300; }
+        .score-3 { background-color: #FF6600; }
+        .score-4 { background-color: #FF9900; }
+        .score-5 { background-color: #FFCC00; }
+        .score-6 { background-color: #FFFF00; }
+        .score-7 { background-color: #CCFF00; }
+        .score-8 { background-color: #99FF00; }
+        .score-9 { background-color: #66FF00; }
+        .score-10 { background-color: #00FF00; }
     </style>
 </head>
 <body>
@@ -51,15 +65,141 @@
     </header>
 
     <div class="container">
-        <div class="content">
-            <h2>Welcome to Your Website</h2>
-            <p>This is a beautiful dark mahogany brown and mellow yellow themed homepage.</p>
-            <!-- Add more content here -->
+        <!-- Existing content here -->
+    </div>
+
+    <div class="container">
+        <h2>Tanning Forecast</h2>
+        <div class="row" id="beach-list">
+            <!-- Tanning forecast cards will be inserted here dynamically -->
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary select-day-button" onclick="recommendBeach(0)">Today</button>
+            <button class="btn btn-primary select-day-button" onclick="recommendBeach(1)">Tomorrow</button>
+            <button class="btn btn-primary select-day-button" onclick="recommendBeach(2)">Day After Tomorrow</button>
+            <button class="btn btn-primary select-day-button" onclick="recommendBeach(3)">In 3 Days</button>
+            <button class="btn btn-primary select-day-button" onclick="recommendBeach(4)">In 4 Days</button>
+            <button class="btn btn-primary back-to-general-forecast" onclick="goBackToGeneralForecast()">Back to General Forecast</button>
         </div>
     </div>
 
-    <footer>
-        &copy; 2023 Your Website. All rights reserved.
-    </footer>
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const apiKey = "57056333dfe0e734eefdcc7ae2aaf7da";
+
+        const beaches = [
+            {
+                name: "Sandbridge, VA",
+                coordinates: { lat: 36.7226, lon: -75.9315 },
+                image: "https://virginiabeach.guide/wp-content/uploads/2019/07/Sandbridge-Beach-aerial.jpg",
+            },
+            {
+                name: "Corolla, NC",
+                coordinates: { lat: 36.3803, lon: -75.8302 },
+                image: "https://co.currituck.nc.us/wp-content/uploads/2018/03/beach-driving_Page_1-1024x683.jpg",
+            },
+            {
+                name: "Buxton, NC",
+                coordinates: { lat: 35.2581, lon: -75.5467 },
+                image: "https://www.thecoastlandtimes.com/wp-content/uploads/sites/55/2019/06/buxton-beach-nourishment-2018.jpg",
+            },
+        ];
+
+        let generalForecast = true;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            updateGeneralForecast();
+        });
+
+        function updateGeneralForecast() {
+            generalForecast = true;
+            const beachList = document.getElementById("beach-list");
+            beachList.innerHTML = '';
+
+            beaches.forEach((beach) => {
+                const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${beach.coordinates.lat}&lon=${beach.coordinates.lon}&exclude=minutely,hourly&appid=${apiKey}&units=imperial`;
+
+                fetch(apiUrl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const tanningForecast = data.daily.slice(0, 5); // Get the forecast for the next 5 days
+
+                        const tanningForecastCard = document.createElement("div");
+                        tanningForecastCard.classList.add("tanning-forecast-card");
+
+                        tanningForecastCard.innerHTML = `
+                            <img src="${beach.image}" alt="${beach.name}">
+                            <div class="forecast-details">
+                                <h2>${beach.name}</h2>
+                                ${tanningForecast.map((day) => `
+                                    <div class="day-forecast">
+                                        <p>${new Date(day.dt * 1000).toLocaleDateString()}: UV Index: ${day.uvi}, Weather: ${day.weather[0].description}, Temperature: ${day.temp.day}°F</p>
+                                        <div class="score-box score-${calculateScore(day.uvi)}">${calculateScore(day.uvi)}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+
+                        beachList.appendChild(tanningForecastCard);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching data:", error);
+                    });
+            });
+        }
+
+        function recommendBeach(dayIndex) {
+            generalForecast = false;
+            const beachList = document.getElementById("beach-list");
+            beachList.innerHTML = '';
+
+            beaches.forEach((beach) => {
+                const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${beach.coordinates.lat}&lon=${beach.coordinates.lon}&exclude=minutely,hourly&appid=${apiKey}&units=imperial`;
+
+                fetch(apiUrl)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        const tanningForecast = data.daily[dayIndex];
+                        const score = calculateScore(tanningForecast.uvi);
+
+                        const tanningForecastCard = document.createElement("div");
+                        tanningForecastCard.classList.add("tanning-forecast-card");
+
+                        tanningForecastCard.innerHTML = `
+                            <img src="${beach.image}" alt="${beach.name}">
+                            <div class="forecast-details">
+                                <h2>${beach.name}</h2>
+                                <div class="day-forecast">
+                                    <p>${new Date(tanningForecast.dt * 1000).toLocaleDateString()}: UV Index: ${tanningForecast.uvi}, Weather: ${tanningForecast.weather[0].description}, Temperature: ${tanningForecast.temp.day}°F</p>
+                                </div>
+                            </div>
+                            <div class="score-box score-${score}">${score}</div>
+                        `;
+
+                        beachList.appendChild(tanningForecastCard);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching data:", error);
+                    });
+            });
+        }
+
+        function calculateScore(uvIndex) {
+            if (uvIndex >= 1 && uvIndex <= 10) {
+                return Math.round((uvIndex / 10) * 9 + 1);
+            } else {
+                return 0;
+            }
+        }
+
+        function goBackToGeneralForecast() {
+            if (!generalForecast) {
+                updateGeneralForecast();
+            }
+        }
+    </script>
 </body>
 </html>
