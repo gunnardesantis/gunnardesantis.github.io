@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Beach Data</title>
+</head>
+<body>
+    <h1>Beach Information</h1>
+    <table id="beach-table">
+        <!-- The table will be populated with data from the CSV file -->
+    </table>
+
+    <script>
+        // JavaScript to load and display CSV data
+        fetch('path/to/your/beach_data.csv')
+            .then(response => response.text())
+            .then(data => {
+                const beachData = data.split('\n').map(row => row.split(','));
+                const table = document.getElementById('beach-table');
+                beachData.forEach(rowData => {
+                    const row = document.createElement('tr');
+                    rowData.forEach(cellData => {
+                        const cell = document.createElement('td');
+                        cell.textContent = cellData;
+                        row.appendChild(cell);
+                    });
+                    table.appendChild(row);
+                });
+            });
+    </script>
+</body>
+</html>
