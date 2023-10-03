@@ -33,6 +33,11 @@
             margin-bottom: 20px;
         }
 
+        .beach-image {
+            max-width: 100%;
+            height: auto;
+        }
+
         .score-box {
             width: 30px;
             height: 30px;
@@ -61,18 +66,6 @@
 <body>
     <header>
         <h1>Your Website</h1>
-        <!-- Add navigation or other header content here -->
-    </header>
-
-    <div class="container">
-        <!-- Existing content here -->
-    </div>
-
-    <div class="container">
-        <h2>Tanning Forecast</h2>
-        <div class="row" id="beach-list">
-            <!-- Tanning forecast cards will be inserted here dynamically -->
-        </div>
         <div class="text-center">
             <button class="btn btn-primary select-day-button" onclick="recommendBeach(0)">Today</button>
             <button class="btn btn-primary select-day-button" onclick="recommendBeach(1)">Tomorrow</button>
@@ -81,6 +74,13 @@
             <button class="btn btn-primary select-day-button" onclick="recommendBeach(4)">In 4 Days</button>
             <button class="btn btn-primary back-to-general-forecast" onclick="goBackToGeneralForecast()">Back to General Forecast</button>
         </div>
+    </header>
+
+    <div class="container">
+        <h2>Tanning Forecast</h2>
+        <div class="row" id="beach-list">
+            <!-- Tanning forecast cards will be inserted here dynamically -->
+        </div>
     </div>
 
     <!-- Include Bootstrap JS and jQuery -->
@@ -88,118 +88,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
-        const apiKey = "57056333dfe0e734eefdcc7ae2aaf7da";
-
-        const beaches = [
-            {
-                name: "Sandbridge, VA",
-                coordinates: { lat: 36.7226, lon: -75.9315 },
-                image: "https://virginiabeach.guide/wp-content/uploads/2019/07/Sandbridge-Beach-aerial.jpg",
-            },
-            {
-                name: "Corolla, NC",
-                coordinates: { lat: 36.3803, lon: -75.8302 },
-                image: "https://co.currituck.nc.us/wp-content/uploads/2018/03/beach-driving_Page_1-1024x683.jpg",
-            },
-            {
-                name: "Buxton, NC",
-                coordinates: { lat: 35.2581, lon: -75.5467 },
-                image: "https://www.thecoastlandtimes.com/wp-content/uploads/sites/55/2019/06/buxton-beach-nourishment-2018.jpg",
-            },
-        ];
-
-        let generalForecast = true;
-
-        document.addEventListener("DOMContentLoaded", () => {
-            updateGeneralForecast();
-        });
-
-        function updateGeneralForecast() {
-            generalForecast = true;
-            const beachList = document.getElementById("beach-list");
-            beachList.innerHTML = '';
-
-            beaches.forEach((beach) => {
-                const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${beach.coordinates.lat}&lon=${beach.coordinates.lon}&exclude=minutely,hourly&appid=${apiKey}&units=imperial`;
-
-                fetch(apiUrl)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const tanningForecast = data.daily.slice(0, 5); // Get the forecast for the next 5 days
-
-                        const tanningForecastCard = document.createElement("div");
-                        tanningForecastCard.classList.add("tanning-forecast-card");
-
-                        tanningForecastCard.innerHTML = `
-                            <img src="${beach.image}" alt="${beach.name}">
-                            <div class="forecast-details">
-                                <h2>${beach.name}</h2>
-                                ${tanningForecast.map((day) => `
-                                    <div class="day-forecast">
-                                        <p>${new Date(day.dt * 1000).toLocaleDateString()}: UV Index: ${day.uvi}, Weather: ${day.weather[0].description}, Temperature: ${day.temp.day}°F</p>
-                                        <div class="score-box score-${calculateScore(day.uvi)}">${calculateScore(day.uvi)}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                        `;
-
-                        beachList.appendChild(tanningForecastCard);
-                    })
-                    .catch((error) => {
-                        console.error("Error fetching data:", error);
-                    });
-            });
-        }
-
-        function recommendBeach(dayIndex) {
-            generalForecast = false;
-            const beachList = document.getElementById("beach-list");
-            beachList.innerHTML = '';
-
-            beaches.forEach((beach) => {
-                const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${beach.coordinates.lat}&lon=${beach.coordinates.lon}&exclude=minutely,hourly&appid=${apiKey}&units=imperial`;
-
-                fetch(apiUrl)
-                    .then((response) => response.json())
-                    .then((data) => {
-                        const tanningForecast = data.daily[dayIndex];
-                        const score = calculateScore(tanningForecast.uvi);
-
-                        const tanningForecastCard = document.createElement("div");
-                        tanningForecastCard.classList.add("tanning-forecast-card");
-
-                        tanningForecastCard.innerHTML = `
-                            <img src="${beach.image}" alt="${beach.name}">
-                            <div class="forecast-details">
-                                <h2>${beach.name}</h2>
-                                <div class="day-forecast">
-                                    <p>${new Date(tanningForecast.dt * 1000).toLocaleDateString()}: UV Index: ${tanningForecast.uvi}, Weather: ${tanningForecast.weather[0].description}, Temperature: ${tanningForecast.temp.day}°F</p>
-                                </div>
-                            </div>
-                            <div class="score-box score-${score}">${score}</div>
-                        `;
-
-                        beachList.appendChild(tanningForecastCard);
-                    })
-                    .catch((error) => {
-                        console.error("Error fetching data:", error);
-                    });
-            });
-        }
-
-        function calculateScore(uvIndex) {
-            if (uvIndex >= 1 && uvIndex <= 10) {
-                return Math.round((uvIndex / 10) * 9 + 1);
-            } else {
-                return 0;
-            }
-        }
-
-        function goBackToGeneralForecast() {
-            if (!generalForecast) {
-                updateGeneralForecast();
-            }
-        }
+        // Your existing JavaScript code here
     </script>
 </body>
 </html>
