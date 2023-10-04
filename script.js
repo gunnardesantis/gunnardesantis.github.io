@@ -1,6 +1,6 @@
 const apiKey = "57056333dfe0e734eefdcc7ae2aaf7da";
+
 let beaches = []; // Array to store beach data
-let generalForecast = true;
 
 // Load and parse the CSV file
 Papa.parse("beach_data.csv", {
@@ -14,13 +14,7 @@ Papa.parse("beach_data.csv", {
     }
 });
 
-// Event listeners for buttons
-document.getElementById("today-button").addEventListener("click", () => recommendBeach(0));
-document.getElementById("tomorrow-button").addEventListener("click", () => recommendBeach(1));
-document.getElementById("day-after-tomorrow-button").addEventListener("click", () => recommendBeach(2));
-document.getElementById("in-3-days-button").addEventListener("click", () => recommendBeach(3));
-document.getElementById("in-4-days-button").addEventListener("click", () => recommendBeach(4));
-document.getElementById("back-button").addEventListener("click", goBackToGeneralForecast);
+let generalForecast = true;
 
 function updateGeneralForecast() {
     generalForecast = true;
@@ -34,13 +28,38 @@ function updateGeneralForecast() {
             .then((response) => response.json())
             .then((data) => {
                 const tanningForecast = data.daily.slice(0, 5); // Get the forecast for the next 5 days
-                const tanningForecastCard = createTanningForecastCard(beach, tanningForecast);
+
+                const tanningForecastCard = document.createElement("div");
+                tanningForecastCard.classList.add("col-md-4"); // Use Bootstrap's grid system
+                tanningForecastCard.innerHTML = `
+                    <div class="tanning-forecast-card">
+                        <img src="${beach.image}" alt="${beach.name}" class="beach-image">
+                        <h2>${beach.name}</h2>
+                        <div class="forecast-details">
+                            ${tanningForecast.map((day) => `
+                                <div class="day-forecast">
+                                    <p>${new Date(day.dt * 1000).toLocaleDateString()}: UV Index: ${day.uvi.toFixed(2)}, Weather: ${day.weather[0].description}, Temperature: ${day.temp.day.toFixed(2)}°F</p>
+                                    <div class="score-box score-${calculateScore(day.uvi)}">${calculateScore(day.uvi)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
                 beachList.appendChild(tanningForecastCard);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
     });
+}
+
+function calculateScore(uvIndex) {
+    if (uvIndex >= 1 && uvIndex <= 10) {
+        return Math.round((uvIndex / 10) * 9 + 1);
+    } else {
+        return 0;
+    }
 }
 
 function recommendBeach(dayIndex) {
@@ -56,44 +75,28 @@ function recommendBeach(dayIndex) {
             .then((data) => {
                 const tanningForecast = data.daily[dayIndex];
                 const score = calculateScore(tanningForecast.uvi);
-                const tanningForecastCard = createTanningForecastCard(beach, [tanningForecast]);
+
+                const tanningForecastCard = document.createElement("div");
+                tanningForecastCard.classList.add("col-md-4"); // Use Bootstrap's grid system
+                tanningForecastCard.innerHTML = `
+                    <div class="tanning-forecast-card">
+                        <img src="${beach.image}" alt="${beach.name}" class="beach-image">
+                        <h2>${beach.name}</h2>
+                        <div class="forecast-details">
+                            <div class="day-forecast">
+                                <p>${new Date(tanningForecast.dt * 1000).toLocaleDateString()}: UV Index: ${tanningForecast.uvi}, Weather: ${tanningForecast.weather[0].description}, Temperature: ${tanningForecast.temp.day}°F</p>
+                            </div>
+                        </div>
+                        <div class="score-box score-${score}">${score}</div>
+                    </div>
+                `;
+
                 beachList.appendChild(tanningForecastCard);
             })
             .catch((error) => {
                 console.error("Error fetching data:", error);
             });
     });
-}
-
-function createTanningForecastCard(beach, tanningForecast) {
-    const tanningForecastCard = document.createElement("div");
-    tanningForecastCard.classList.add("col-md-4", "tanning-forecast-card"); // Use Bootstrap's grid system
-    tanningForecastCard.innerHTML = `
-        <img src="${beach.image}" alt="${beach.name}" class="beach-image">
-        <h2>${beach.name}</h2>
-        <div class="forecast-details">
-            ${tanningForecast.map((day) => createDayForecastElement(day)).join('')}
-        </div>
-    `;
-
-    return tanningForecastCard;
-}
-
-function createDayForecastElement(day) {
-    return `
-        <div class="day-forecast">
-            <p>${new Date(day.dt * 1000).toLocaleDateString()}: UV Index: ${day.uvi.toFixed(2)}, Weather: ${day.weather[0].description}, Temperature: ${day.temp.day.toFixed(2)}°F</p>
-            <div class="score-box score-${calculateScore(day.uvi)}">${calculateScore(day.uvi)}</div>
-        </div>
-    `;
-}
-
-function calculateScore(uvIndex) {
-    if (uvIndex >= 1 && uvIndex <= 10) {
-        return Math.round((uvIndex / 10) * 9 + 1);
-    } else {
-        return 0;
-    }
 }
 
 function goBackToGeneralForecast() {
