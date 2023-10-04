@@ -1,0 +1,54 @@
+/* Custom styles here */
+body {
+    background-color: #231f20; /* Dark Mahogany Brown */
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #fec23e; /* Mellow Yellow */
+    padding: 20px 0;
+    text-align: center;
+}
+
+.container {
+    padding: 20px;
+}
+
+.tanning-forecast-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.beach-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.score-box {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    border-radius: 50%;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Score color gradient */
+.score-1 { background-color: #FF0000; }
+.score-2 { background-color: #FF3300; }
+.score-3 { background-color: #FF6600; }
+.score-4 { background-color: #FF9900; }
+.score-5 { background-color: #FFCC00; }
+.score-6 { background-color: #FFFF00; }
+.score-7 { background-color: #CCFF00; }
+.score-8 { background-color: #99FF00; }
+.score-9 { background-color: #66FF00; }
+.score-10 { background-color: #00FF00; }
