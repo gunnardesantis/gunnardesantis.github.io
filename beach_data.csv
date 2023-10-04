@@ -1,4 +1,11 @@
-name, state, latitude,longitude,image
-Sandbridge,VA,36.7226,-75.9315,https://virginiabeach.guide/wp-content/uploads/2019/07/Sandbridge-Beach-aerial.jpg
-Corolla,NC,36.3803,-75.8302,https://co.currituck.nc.us/wp-content/uploads/2018/03/beach-driving_Page_1-1024x683.jpg
-Buxton,NC,35.2581,-75.5467,https://www.thecoastlandtimes.com/wp-content/uploads/sites/55/2019/06/buxton-beach-nourishment-2018.jpg
+name,image,uvi,weather,temperature
+Cancun Beach,https://example.com/cancun.jpg,5.0,Sunny,85
+Waikiki Beach,https://example.com/waikiki.jpg,6.5,Partly Cloudy,80
+Bondi Beach,https://example.com/bondi.jpg,7.2,Clear Sky,75
+Copacabana Beach,https://example.com/copacabana.jpg,6.0,Sunny,87
+Bora Bora Beach,https://example.com/bora-bora.jpg,4.5,Scattered Clouds,88
+Myrtle Beach,https://example.com/myrtle.jpg,5.8,Partly Cloudy,82
+Maldives Beach,https://example.com/maldives.jpg,8.0,Sunny,90
+Barcelona Beach,https://example.com/barcelona.jpg,7.5,Partly Cloudy,79
+Venice Beach,https://example.com/venice.jpg,6.3,Scattered Clouds,75
+Miami Beach,https://example.com/miami.jpg,8.2,Sunny,88
