@@ -1,0 +1,54 @@
+const apiKey = "57056333dfe0e734eefdcc7ae2aaf7da";
+let beaches = []; // Array to store beach data
+let generalForecast = true;
+
+// Load and parse the CSV file
+Papa.parse("beach_data.csv", {
+    header: true,
+    dynamicTyping: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+        beaches = results.data;
+        // Call a function to populate the beach list
+        updateGeneralForecast();
+    }
+});
+
+// Event listeners for buttons
+document.getElementById("today-button").addEventListener("click", () => recommendBeach(0));
+document.getElementById("tomorrow-button").addEventListener("click", () => recommendBeach(1));
+document.getElementById("day-after-tomorrow-button").addEventListener("click", () => recommendBeach(2));
+document.getElementById("in-3-days-button").addEventListener("click", () => recommendBeach(3));
+document.getElementById("in-4-days-button").addEventListener("click", () => recommendBeach(4));
+document.getElementById("back-button").addEventListener("click", goBackToGeneralForecast);
+
+function updateGeneralForecast() {
+    generalForecast = true;
+    const beachList = document.getElementById("beach-list");
+    beachList.innerHTML = '';
+
+    beaches.forEach((beach) => {
+        const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${beach.latitude}&lon=${beach.longitude}&exclude=minutely,hourly&appid=${apiKey}&units=imperial`;
+
+        fetch(apiUrl)
+            .then((response) => response.json())
+            .then((data) => {
+                const tanningForecast = data.daily.slice(0, 5); // Get the forecast for the next 5 days
+                const tanningForecastCard = createTanningForecastCard(beach, tanningForecast);
+                beachList.appendChild(tanningForecastCard);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    });
+}
+
+function recommendBeach(dayIndex) {
+    generalForecast = false;
+    const beachList = document.getElementById("beach-list");
+    beachList.innerHTML = '';
+
+    beaches.forEach((beach) => {
+        const apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${beach.latitude}&lon=${beach.longitude}&exclude=minutely,hourly&appid=${apiKey}&units=imperial`;
+
+        fetch(apiUrl)
