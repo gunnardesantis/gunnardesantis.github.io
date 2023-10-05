@@ -1,49 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanline</title>
-    <!-- Include Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Include your custom CSS file (IndexCSS.css) -->
-    <link rel="stylesheet" href="styles.css">
+    <!-- Meta tags and title here -->
 </head>
 <body>
     <header>
-        <h1>Your Website</h1>
-        <div class="text-center">
-            <button class="btn btn-primary select-day-button" id="today-button">Today</button>
-            <!-- Other buttons here -->
-            <button class="btn btn-primary back-to-general-forecast" id="back-button">Back to General Forecast</button>
-        </div>
+        <!-- Header content here -->
     </header>
 
-    <!-- Login form in the top left corner -->
-    <div id="login-container" class="ml-3 mt-3">
+    <!-- Login form in the top right corner -->
+    <div id="login-container" class="position-absolute top-0 end-0 m-3 p-3 bg-gray">
         <form id="login-form">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Login</button>
+            <label for="username" class="text-white">Username:</label>
+            <input type="text" id="username" name="username" class="form-control" required>
+            <label for="password" class="text-white">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+            <button type="submit" class="btn btn-secondary mt-3">Login</button>
         </form>
     </div>
-    
-    <!-- Rest of your content -->
-    <div class="container">
-        <h2>Tanning Forecast</h2>
-        <div class="row" id="beach-list">
-            <!-- Tanning forecast cards will be inserted here dynamically -->
-        </div>
-    </div>
 
-    <!-- Include Bootstrap JS and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <!-- Include your custom JavaScript file (script.js) for dynamic content -->
-    <script src="script.js"></script>
+    <!-- Rest of your content -->
 </body>
 </html>
