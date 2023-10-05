@@ -5,6 +5,35 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* Style for the login container */
+#login-container {
+    width: 300px; /* Adjust width as needed */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for form labels and text */
+label, input {
+    display: block;
+}
+
+/* Style for the buttons */
+.btn {
+    background-color: #777; /* Gray background color */
+    color: white; /* Text color */
+}
+
+/* Add spacing between form elements */
+.form-control, .btn {
+    margin-top: 5px;
+}
+
+/* Add padding to the form container */
+#login-container {
+    padding: 15px;
+}
+
+
 header {
     background-color: #fec23e; /* Mellow Yellow */
     padding: 20px 0;
