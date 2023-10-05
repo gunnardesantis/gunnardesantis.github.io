@@ -18,31 +18,7 @@
             <button class="btn btn-primary back-to-general-forecast" id="back-button">Back to General Forecast</button>
         </div>
     </header>
-    
-    <!-- Login form in the top right corner -->
-    <form id="login-form">
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
 
-    <div id="login-container" class="position-absolute top-0 end-0 mt-3 mr-3">
-        <form id="login-form">
-            <!-- Input fields here -->
-        </form>
-    </div>
-
-    <!-- Login button in the top right corner -->
-    <div class="position-absolute top-0 end-0 mt-3 mr-3">
-        <button type="submit" class="btn btn-primary">Login</button>
-    </div>
-    
     <!-- UV meter -->
     <div id="uv-meter" class="position-absolute top-0 start-0 m-3 p-3">
         <div class="uv-score">
@@ -51,13 +27,25 @@
         <div class="zipcode">
             <span id="zipcode-label">Zipcode: 12345</span>
         </div>
-    </div>  
+    </div> 
+
     <!-- Rest of your content -->
     <div class="container">
         <h2>Tanning Forecast</h2>
         <div class="row" id="beach-list">
             <!-- Tanning forecast cards will be inserted here dynamically -->
         </div>
+    </div>
+
+    <!-- Login form -->
+    <div id="login-container" class="position-absolute top-0 end-0 mt-3 mr-3">
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="form-control" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="form-control" required>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
     </div>
 
     <!-- Include Bootstrap JS and jQuery -->
