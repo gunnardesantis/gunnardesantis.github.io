@@ -52,3 +52,44 @@ header {
 .score-8 { background-color: #99FF00; }
 .score-9 { background-color: #66FF00; }
 .score-10 { background-color: #00FF00; }
+
+#login-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form label {
+    margin-bottom: 5px;
+}
+
+#login-form input {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#login-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+#login-form button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
