@@ -104,3 +104,41 @@ function goBackToGeneralForecast() {
         updateGeneralForecast();
     }
 }
+
+// script.js
+
+// Sample data for tanning forecasts
+const tanningForecasts = [
+    { beachName: "Beach 1", forecast: "Sunny and warm" },
+    { beachName: "Beach 2", forecast: "Partly cloudy" },
+    { beachName: "Beach 3", forecast: "Clear skies" },
+    // Add more forecast data as needed
+];
+
+// Function to generate and insert tanning forecast cards
+function insertTanningForecastCards() {
+    const beachList = document.getElementById("beach-list");
+
+    // Clear any existing cards
+    beachList.innerHTML = "";
+
+    // Loop through the tanning forecasts and create cards
+    tanningForecasts.forEach((forecast, index) => {
+        const card = document.createElement("div");
+        card.classList.add("col-md-4"); // Adjust the column size as needed
+        card.innerHTML = `
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">${forecast.beachName}</h5>
+                    <p class="card-text">${forecast.forecast}</p>
+                </div>
+            </div>
+        `;
+
+        // Append the card to the beachList container
+        beachList.appendChild(card);
+    });
+}
+
+// Call the function to insert tanning forecast cards when the page loads
+window.onload = insertTanningForecastCards;
