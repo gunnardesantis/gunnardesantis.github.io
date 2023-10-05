@@ -16,6 +16,36 @@ Papa.parse("beach_data.csv", {
 
 let generalForecast = true;
 
+// Add a click event listener to open the login modal
+document.getElementById("open-login-modal").addEventListener("click", function() {
+    document.getElementById("login-modal").style.display = "block";
+});
+
+// Add a click event listener to close the login modal
+document.getElementById("close-login-modal").addEventListener("click", function() {
+    document.getElementById("login-modal").style.display = "none";
+});
+
+// Handle the login form submission
+document.getElementById("login-form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    // Get the entered username and password
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Perform authentication logic here (e.g., checking against a database)
+    // Replace this with your actual authentication code
+    if (username === "your_username" && password === "your_password") {
+        alert("Login successful!");
+        // Close the modal after successful login
+        document.getElementById("login-modal").style.display = "none";
+    } else {
+        alert("Login failed. Please check your credentials.");
+    }
+});
+
+
 function updateGeneralForecast() {
     generalForecast = true;
     const beachList = document.getElementById("beach-list");
