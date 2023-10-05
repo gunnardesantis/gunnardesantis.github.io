@@ -14,39 +14,13 @@
         <h1>Your Website</h1>
         <div class="text-center">
             <button class="btn btn-primary select-day-button" id="today-button">Today</button>
-            <button class="btn btn-primary select-day-button" id="tomorrow-button">Tomorrow</button>
-            <button class="btn btn-primary select-day-button" id="day-after-tomorrow-button">Day After Tomorrow</button>
-            <button class="btn btn-primary select-day-button" id="in-3-days-button">In 3 Days</button>
-            <button class="btn btn-primary select-day-button" id="in-4-days-button">In 4 Days</button>
+            <!-- Other buttons here -->
             <button class="btn btn-primary back-to-general-forecast" id="back-button">Back to General Forecast</button>
         </div>
     </header>
 
-    <body>
-<iframe id="userHtmlFrame" frameborder="0" scrolling="yes" style="overflow: auto;">
-</iframe>
-
-<script>function loadGapi(){var loaderScript=document.createElement('script');loaderScript.setAttribute('src','https://apis.google.com/js/api.js?checkCookie=1');loaderScript.onload=function(){this.onload=function(){};loadGapiClient();};loaderScript.onreadystatechange=function(){if(this.readyState==='complete'){this.onload();}};(document.head||document.body||document.documentElement).appendChild(loaderScript);}function updateUserHtmlFrame(userHtml,enableInteraction,forceIosScrolling){var frame=document.getElementById('userHtmlFrame');if(enableInteraction){if(forceIosScrolling){var iframeParent=frame.parentElement;iframeParent.classList.add('forceIosScrolling');}else{frame.style.overflow='auto';}}else{frame.setAttribute('scrolling','no');frame.style.pointerEvents='none';}clearCookies();clearStorage();frame.contentWindow.document.open();frame.contentWindow.document.write('<base target="_blank">'+userHtml);frame.contentWindow.document.close();}function onGapiInitialized(){gapi.rpc.call('..','innerFrameGapiInitialized');gapi.rpc.register('updateUserHtmlFrame',updateUserHtmlFrame);}function loadGapiClient(){gapi.load('gapi.rpc',onGapiInitialized);}if(document.readyState=='complete'){loadGapi();}else{self.addEventListener('load',loadGapi);}function clearCookies(){var cookies=document.cookie.split(";");for(var i=0;i<cookies.length;i++){var cookie=cookies[i];var equalPosition=cookie.indexOf("=");var name=equalPosition>-1?cookie.substr(0,equalPosition):cookie;document.cookie=name+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT";document.cookie=name+"=;expires=Thu, 01 Jan 1970 00:00:01 GMT ;domain=.googleusercontent.com";}}function clearStorage(){try{localStorage.clear();sessionStorage.clear();}catch(e){}}</script>
-
-
-</body>
-    
-    <div id="login-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="close-login-modal">&times;</span>
-            <h2>Login</h2>
-            <form id="login-form">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Login</button>
-            </form>
-        </div>
-    </div>
-
-
-    <div id="login-container">
+    <!-- Login form in the top left corner -->
+    <div id="login-container" class="ml-3 mt-3">
         <form id="login-form">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
@@ -55,10 +29,8 @@
             <button type="submit">Login</button>
         </form>
     </div>
-
     
-    <button id="open-login-modal">Login</button>
-
+    <!-- Rest of your content -->
     <div class="container">
         <h2>Tanning Forecast</h2>
         <div class="row" id="beach-list">
