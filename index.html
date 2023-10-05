@@ -20,15 +20,16 @@
     </header>
 
     <!-- Login form in the top right corner -->
-    <div id="login-container" class="position-absolute top-0 end-0 m-3 p-3 bg-gray">
+    <div id="login-container" class="position-absolute top-0 end-0 mt-3 mr-3">
         <form id="login-form">
-            <label for="username" class="text-white">Username:</label>
-            <input type="text" id="username" name="username" class="form-control" required>
-            <label for="password" class="text-white">Password:</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-            <button type="submit" class="btn btn-secondary mt-3">Login</button>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
         </form>
     </div>
+
     <!-- UV meter -->
     <div id="uv-meter" class="position-absolute top-0 start-0 m-3 p-3">
         <div class="uv-score">
